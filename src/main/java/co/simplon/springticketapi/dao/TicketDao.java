@@ -20,7 +20,7 @@ public class TicketDao implements Dao<Ticket> {
 
     // QUESTION 1- OK -requête pour créer un nouveau ticket dans la BDD
     public Ticket post(Ticket ticket) {
-        jdbcTemplate.execute("INSERT INTO ticket (date, description, learneridx) VALUES ('" + ticket.getDate() + "','" + ticket.getDescription()+"','" + ticket.getLearneridx()+"')");
+        jdbcTemplate.execute("INSERT INTO ticket (date, description, learneridx) VALUES ('" + ticket.getDate() + "','" + ticket.getDescription() + "','" + ticket.getLearneridx() + "')");
         return ticket;
     }
 
@@ -31,32 +31,29 @@ public class TicketDao implements Dao<Ticket> {
         return jdbcTemplate.query("select * from ticket where solved = false", ticketRowMapper);
     }
 
-    //code d'origine
-//    @Override
-//    public List<Ticket> getAll() {
-//        return jdbcTemplate.query("select * from ticket", ticketRowMapper);
-//    }
-
-
-
-    // QUESTION 3- POur la requet PUT , mettre à jour le statut dans la BDD ( passer la colonne solved de false a true )
+    // QUESTION 3- Pour la requete PUT , mettre à jour le statut dans la BDD ( passer la colonne solved de false a true )
 
     @Override
     public void save(Ticket ticket) {
-        jdbcTemplate.execute("UPDATE ticket (solved) VALUES ('" + ticket.getSolved() +"')");
-
+        jdbcTemplate.update("UPDATE ticket set solved =" + ticket.isSolved() + " where id =" + ticket.getId());
     }
 
-    @Override
-    public Ticket get(Long id) {
-        return jdbcTemplate.queryForObject("select * from ticket where id = ?", ticketRowMapper, id);
-    }
+     //-----------------------------------------------------------------------------------------------------------//
+
+
+    //methodes ci dessous non utilisées mais presentes en raison de l'implementation de l'interface DAO
+
 
     @Override
     public void delete(Long id) {
         // A vous de jouer
     }
 
+
+    @Override
+    public Ticket get(Long id) {
+        return jdbcTemplate.queryForObject("select * from ticket where id = ?", ticketRowMapper, id);
+    }
 
 
 }

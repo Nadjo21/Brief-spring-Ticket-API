@@ -29,36 +29,22 @@ public class TicketController {
         return ticketDao.post(ticket);
     }
 
-
     //QUESTION 2 OK -Lister les tickets en cours (ceux qui ne sont pas résolus)
     @GetMapping
     public List<Ticket> getAllTickets() {
-        System.out.println();
-        return ticketDao.getAll();
+       return ticketDao.getAll();
+    }
+
+    //QUESTION 3 -Mettre à jour des tickets (une fois que l'on a repondu a la question- le statut "solved" doit ensuite passer de false a true dans la bdd)
+
+    @PutMapping()
+    public void saveTicketChangeStatus(@RequestBody Ticket ticket) {
+        ticket.setSolved(true);
+        ticketDao.save(ticket);
+        System.out.println(ticket);
     }
 
 
-//code d'origine
-    /*@GetMapping
-    public List<Ticket> getAllTickets() {
-        return ticketDao.getAll();
-    }*/
-
-
-//QUESTION 3 -Mettre à jour des tickets (une fois que l'on a repondu a la question- le statut "solved" doit ensuite passer de false a true dans la bdd)
-    @PutMapping
-    public List<Ticket> ticketChangeStatus(@RequestBody Ticket ticketstatus){
-        ticketstatus.setSolved(true);
-        return ticketDao.getAll();
-
-
-    }
-
-
-    @GetMapping("/{id}")
-    public Ticket getTicket(@PathVariable Long id) {
-        return ticketDao.get(id);
-    }
 
 
 }
