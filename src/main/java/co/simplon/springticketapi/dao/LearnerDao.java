@@ -33,9 +33,12 @@ public class LearnerDao implements Dao<Learner> {
     }
 
    // methode delete cree contenant l'instruction SQL pour a supprimer un apprenant de la BDD
+    //ici , id dans la requet correspond a l'attribut id dans la methode void delete juste au dessus
+
     @Override
     public void delete(Long id) {
-        jdbcTemplate.update("DELETE FROM learner(id) where id =" + "learner.getId()");
+        jdbcTemplate.update("DELETE FROM learner where id ="+ id);
+
 
     }
 

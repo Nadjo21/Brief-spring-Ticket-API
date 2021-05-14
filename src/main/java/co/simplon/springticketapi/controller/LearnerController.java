@@ -42,10 +42,11 @@ public class LearnerController {
     }
 
     //Supprimer un apprenant de la liste
-    @DeleteMapping("learners/{id}")
-    public void deleteLearner(@RequestParam(value = "learners/{id}") Long Id) {
-   learnerDao.delete(Id);
-        System.out.println(Id);
+    @DeleteMapping("/{id}")
+    public void deleteLearner(@PathVariable Long id) {
+
+   learnerDao.delete(id);
+        System.out.println(id);
     }
 
 }
